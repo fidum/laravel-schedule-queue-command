@@ -16,7 +16,7 @@ it('does not set the name when provided as a command signature', function () {
     $event = $scheduler->queueCommand('bar:run');
     expect($event->description)
         ->toBeNull()
-        ->and(fn() => $event->withoutOverlapping())
+        ->and(fn () => $event->withoutOverlapping())
         ->toThrow(LogicException::class);
 });
 

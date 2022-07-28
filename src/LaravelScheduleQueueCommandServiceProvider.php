@@ -19,7 +19,7 @@ class LaravelScheduleQueueCommandServiceProvider extends ServiceProvider
             ?string $connection = null
         ) {
             /** @var Schedule $this */
-            $event =  $this->call(function () use ($command, $parameters, $queue, $connection) {
+            $event = $this->call(function () use ($command, $parameters, $queue, $connection) {
                 Container::getInstance()
                     ->make(Kernel::class)
                     ->queue($command, $parameters)
