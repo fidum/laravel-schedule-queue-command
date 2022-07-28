@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method Fidum\\\\LaravelScheduleQueueCommand\\\\LaravelScheduleQueueCommandServiceProvider\\:\\:call\\(\\)\\.$#"
+			count: 1
+			path: src/LaravelScheduleQueueCommandServiceProvider.php
+
+		-
+			message: "#^Call to an undefined method Fidum\\\\LaravelScheduleQueueCommand\\\\LaravelScheduleQueueCommandServiceProvider\\:\\:command\\(\\)\\.$#"
+			count: 1
+			path: src/LaravelScheduleQueueCommandServiceProvider.php

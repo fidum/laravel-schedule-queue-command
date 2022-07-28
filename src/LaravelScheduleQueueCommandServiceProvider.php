@@ -22,7 +22,6 @@ class LaravelScheduleQueueCommandServiceProvider extends ServiceProvider
                 ->make(Request::class)
                 ->server('argv') ?: [];
 
-            /* @var Schedule $this */
             if (in_array('schedule:list', $arguments)) {
                 return $this->command($command, $parameters);
             }
