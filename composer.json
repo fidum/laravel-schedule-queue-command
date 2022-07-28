@@ -1,24 +1,23 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "fidum/laravel-schedule-queue-command",
+    "description": "Provides the ability to queue commands from the Laravel scheduler.",
     "keywords": [
-        ":vendor_name",
+        "fidum",
         "laravel",
-        ":package_slug"
+        "laravel-schedule-queue-command"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/fidum/laravel-schedule-queue-command",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Daniel Mason",
+            "email": "fidum.dev@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
-        "spatie/laravel-package-tools": "^1.9.2",
-        "illuminate/contracts": "^9.0"
+        "illuminate/console": "^9.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
@@ -30,18 +29,16 @@
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^9.5",
-        "spatie/laravel-ray": "^1.26"
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Fidum\\LaravelScheduleQueueCommand\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Fidum\\LaravelScheduleQueueCommand\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -51,15 +48,19 @@
         "format": "vendor/bin/pint"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Fidum\\LaravelScheduleQueueCommand\\LaravelScheduleQueueCommandServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaravelScheduleQueueCommand": "Fidum\\LaravelScheduleQueueCommand\\Facades\\LaravelScheduleQueueCommand"
             }
         }
     },

@@ -1,31 +1,31 @@
-# :package_description
+# Provides the ability to queue commands from the Laravel scheduler.
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/fidum/:package_slug.svg?style=for-the-badge)](https://packagist.org/packages/fidum/:package_slug)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/fidum/:package_slug./Tests?label=tests&style=for-the-badge)](https://github.com/fidum/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![Codecov](https://img.shields.io/codecov/c/github/fidum/:package_slug?logo=codecov&logoColor=white&style=for-the-badge)](https://codecov.io/gh/fidum/:package_slug)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/fidum/laravel-schedule-queue-command.svg?style=for-the-badge)](https://packagist.org/packages/fidum/laravel-schedule-queue-command)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/fidum/laravel-schedule-queue-command./Tests?label=tests&style=for-the-badge)](https://github.com/fidum/laravel-schedule-queue-command/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![Codecov](https://img.shields.io/codecov/c/github/fidum/laravel-schedule-queue-command?logo=codecov&logoColor=white&style=for-the-badge)](https://codecov.io/gh/fidum/laravel-schedule-queue-command)
 [![Twitter Follow](https://img.shields.io/twitter/follow/danmasonmp?label=Follow&logo=twitter&style=for-the-badge)](https://twitter.com/danmasonmp)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Provides the ability to queue commands from the Laravel scheduler.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
+composer require fidum/laravel-schedule-queue-command
 ```
 
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-migrations"
+php artisan vendor:publish --tag="laravel-schedule-queue-command-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-config"
+php artisan vendor:publish --tag="laravel-schedule-queue-command-config"
 ```
 
 This is the contents of the published config file:
@@ -38,14 +38,14 @@ return [
 Optionally, you can publish the views using
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-views"
+php artisan vendor:publish --tag="laravel-schedule-queue-command-views"
 ```
 
 ## Usage
 
 ```php
-$variable = new VendorName\Skeleton();
-echo $variable->echoPhrase('Hello, VendorName!');
+$laravelScheduleQueueCommand = new Fidum\LaravelScheduleQueueCommand();
+echo $laravelScheduleQueueCommand->echoPhrase('Hello, Fidum!');
 ```
 
 ## Testing
@@ -60,7 +60,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/:author_username/.github/blob/main/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/dmason30/.github/blob/main/CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
@@ -68,7 +68,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Daniel Mason](https://github.com/dmason30)
 - [All Contributors](../../contributors)
 
 ## License
