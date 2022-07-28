@@ -15,7 +15,7 @@ composer require fidum/laravel-schedule-queue-command
 ```
 
 ## Usage
-
+In your laravel projects `app/Console/Kernel.php`:
 ```php
 $schedule->queueCommand(FooCommand::class)->everyMinute();
 $schedule->queueCommand(FooCommand::class, ['some-argument' => 'foo']);
