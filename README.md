@@ -4,7 +4,7 @@
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/fidum/laravel-schedule-queue-command/run-tests?label=tests&style=for-the-badge)](https://github.com/fidum/laravel-schedule-queue-command/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![Twitter Follow](https://img.shields.io/twitter/follow/danmasonmp?label=Follow&logo=twitter&style=for-the-badge)](https://twitter.com/danmasonmp)
 
-Provides the ability to queue commands from the Laravel scheduler.
+Adds a `queueCommand` function to the scheduler that executes the equivalent of `Artisan::queue(...)` on the given schedule. It also provides the ability to optionally customise the `queue` and `connection` if needed.
 
 ## Installation
 
