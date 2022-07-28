@@ -1,17 +1,44 @@
 <?php
 
 use Illuminate\Console\Command;
+use Illuminate\Console\Scheduling\CallbackEvent;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\QueuedCommand;
 use Illuminate\Support\Facades\Queue;
+
+it('does not set the name when provided as a command signature', function () {
+    Queue::fake();
+
+    /** @var Schedule $scheduler */
+    $scheduler = $this->app->make(Schedule::class);
+
+    /** @var CallbackEvent $event */
+    $event = $scheduler->queueCommand('bar:run');
+    expect($event->description)
+        ->toBeNull()
+        ->and(fn() => $event->withoutOverlapping())
+        ->toThrow(LogicException::class);
+});
+
+it('sets the name from the command description when provided as a class string', function () {
+    Queue::fake();
+
+    /** @var Schedule $scheduler */
+    $scheduler = $this->app->make(Schedule::class);
+
+    /** @var CallbackEvent $event */
+    $event = $scheduler->queueCommand(FooCommand::class)->withoutOverlapping();
+
+    expect($event->description)->toBe('I am description for the foo command');
+});
 
 it('sends queued command to correct queue', function () {
     Queue::fake();
 
     /** @var Schedule $scheduler */
     $scheduler = $this->app->make(Schedule::class);
-    $scheduler->queueCommand(FooCommand::class)->name('')->everyMinute();
-    $scheduler->queueCommand(FooCommand::class, ['foo' => 'bar'], 'test-queue')->name('')->everyMinute();
+    $scheduler->queueCommand(FooCommand::class)->everyMinute();
+    $scheduler->queueCommand('bar:test', ['foo' => 'bar'], 'test-queue')->everyMinute();
     $scheduler->queueCommand(FooCommand::class, ['foo' => 'bar'], 'another-queue')->name('')->everyMinute();
 
     $events = $scheduler->events();
@@ -29,9 +56,9 @@ it('sends queued command to correct connection', function () {
 
     /** @var \Illuminate\Console\Scheduling\Schedule $scheduler */
     $scheduler = $this->app->make(Schedule::class);
-    $scheduler->queueCommand(FooCommand::class)->name('')->everyMinute();
+    $scheduler->queueCommand(FooCommand::class)->name('')->everyMinute()->withoutOverlapping();
     $scheduler->queueCommand(FooCommand::class, ['foo' => 'bar'], null, 'foo')->name('')->everyMinute();
-    $scheduler->queueCommand(FooCommand::class, ['foo' => 'bar'], null, 'bar')->name('')->everyMinute();
+    $scheduler->queueCommand('bar:test', ['foo' => 'bar'], null, 'bar')->name('')->everyMinute();
 
     $events = $scheduler->events();
     foreach ($events as $event) {
@@ -46,6 +73,8 @@ it('sends queued command to correct connection', function () {
 class FooCommand extends Command
 {
     protected $signature = 'foo:run';
+
+    protected $description = 'I am description for the foo command';
 
     public function handle()
     {
