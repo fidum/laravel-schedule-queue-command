@@ -2,9 +2,9 @@
 
 namespace Fidum\LaravelScheduleQueueCommand\Tests;
 
+use Fidum\LaravelScheduleQueueCommand\LaravelScheduleQueueCommandServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Fidum\LaravelScheduleQueueCommand\LaravelScheduleQueueCommandServiceProvider;
 
 class TestCase extends Orchestra
 {
