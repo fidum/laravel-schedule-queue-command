@@ -6,11 +6,12 @@ use Illuminate\Console\Command;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelScheduleQueueCommandServiceProvider extends ServiceProvider
 {
-    public function boot(): void
+    public function register(): void
     {
         Schedule::macro('queueCommand', function (
             string $command,
@@ -18,23 +19,22 @@ class LaravelScheduleQueueCommandServiceProvider extends ServiceProvider
             ?string $queue = null,
             ?string $connection = null
         ) {
-            /** @var Schedule $this */
-            $event =  $this->call(function () use ($command, $parameters, $queue, $connection) {
+            $arguments = Container::getInstance()
+                ->make(Request::class)
+                ->server('argv') ?: [];
+
+            /* @var Schedule $this */
+            if (in_array('schedule:list', $arguments)) {
+                return $this->command($command, $parameters);
+            }
+
+            return $this->call(function () use ($command, $parameters, $queue, $connection) {
                 Container::getInstance()
                     ->make(Kernel::class)
                     ->queue($command, $parameters)
                     ->onQueue($queue)
                     ->onConnection($connection);
-            });
-
-            if (class_exists($command)) {
-                /** @var Command $object */
-                $object = Container::getInstance()->make($command);
-
-                $event->description($object->getDescription());
-            }
-
-            return $event;
+            })->description($command);
         });
     }
 }

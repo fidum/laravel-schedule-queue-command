@@ -4,6 +4,7 @@ use Illuminate\Console\Command;
 use Illuminate\Console\Scheduling\CallbackEvent;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\QueuedCommand;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Queue;
 
 it('does not set the name when provided as a command signature', function () {
@@ -13,11 +14,8 @@ it('does not set the name when provided as a command signature', function () {
     $scheduler = $this->app->make(Schedule::class);
 
     /** @var CallbackEvent $event */
-    $event = $scheduler->queueCommand('bar:run');
-    expect($event->description)
-        ->toBeNull()
-        ->and(fn() => $event->withoutOverlapping())
-        ->toThrow(LogicException::class);
+    $event = $scheduler->queueCommand('bar:run')->withoutOverlapping();
+    expect($event->description)->toBe('bar:run');
 });
 
 it('sets the name from the command description when provided as a class string', function () {
@@ -29,7 +27,25 @@ it('sets the name from the command description when provided as a class string',
     /** @var CallbackEvent $event */
     $event = $scheduler->queueCommand(FooCommand::class)->withoutOverlapping();
 
-    expect($event->description)->toBe('I am description for the foo command');
+    expect($event->description)->toBe(FooCommand::class);
+});
+
+it('displays the command signature when you run artisan schedule:list', function () {
+    Queue::fake();
+
+    $this->app->make(Request::class)
+        ->server
+        ->set('argv', ['php', 'artisan', 'schedule:list']);
+
+    /** @var Schedule $scheduler */
+    $scheduler = $this->app->make(Schedule::class);
+
+    /** @var CallbackEvent $event */
+    $scheduler->queueCommand(FooCommand::class)->everyMinute()->withoutOverlapping();
+
+    $this->artisan('schedule:list')
+        ->expectsOutputToContain('foo:run')
+        ->assertSuccessful();
 });
 
 it('sends queued command to correct queue', function () {
