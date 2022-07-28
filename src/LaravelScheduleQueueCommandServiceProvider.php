@@ -2,7 +2,6 @@
 
 namespace Fidum\LaravelScheduleQueueCommand;
 
-use Illuminate\Console\Command;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Console\Kernel;
