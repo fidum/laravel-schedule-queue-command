@@ -2,6 +2,17 @@
 
 All notable changes to `laravel-schedule-queue-command` will be documented in this file.
 
+## 1.0.2 - 2024-03-05
+
+### What's Changed
+
+* Run tests on PHP 8.3 by @dmason30 in https://github.com/fidum/laravel-schedule-queue-command/pull/17
+* Support Laravel 11 by @dmason30 in https://github.com/fidum/laravel-schedule-queue-command/pull/20
+  * Dropped Laravel 9 support
+  
+
+**Full Changelog**: https://github.com/fidum/laravel-schedule-queue-command/compare/1.0.1...1.0.2
+
 ## 1.0.1 - 2023-02-08
 
 ### What's Changed
