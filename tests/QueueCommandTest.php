@@ -70,7 +70,7 @@ it('sends queued command to correct queue', function () {
 it('sends queued command to correct connection', function () {
     Queue::fake();
 
-    /** @var \Illuminate\Console\Scheduling\Schedule $scheduler */
+    /** @var Schedule $scheduler */
     $scheduler = $this->app->make(Schedule::class);
     $scheduler->queueCommand(FooCommand::class)->name('')->everyMinute()->withoutOverlapping();
     $scheduler->queueCommand(FooCommand::class, ['foo' => 'bar'], null, 'foo')->name('')->everyMinute();
